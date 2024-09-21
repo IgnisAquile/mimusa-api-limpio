@@ -2,9 +2,15 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+// Middleware para manejar JSON
 app.use(express.json());
 
-// Ruta para obtener datos de ejemplo (sin Firestore por ahora)
+// Ruta raíz ("/")
+app.get('/', (req, res) => {
+    res.send('¡Bienvenido a la API de MiMusa!');
+});
+
+// Ruta para "/memoria"
 app.get('/memoria', (req, res) => {
     const memoria = [
         {
@@ -23,12 +29,13 @@ app.get('/memoria', (req, res) => {
     res.status(200).json(memoria);
 });
 
-// Ruta para agregar nuevos datos de ejemplo
+// Ruta para agregar datos a "/memoria"
 app.post('/memoria', (req, res) => {
     const nuevaEntrada = req.body;
     res.status(201).send(`Nueva entrada añadida: ${JSON.stringify(nuevaEntrada)}`);
 });
 
+// Servidor escuchando
 app.listen(port, () => {
     console.log(`API ejecutándose en http://localhost:${port}`);
 });
